@@ -1,0 +1,704 @@
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap");
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    .pf {
+        font-family: "Inter", sans-serif;
+        background: #0d1117;
+        color: #f0f6fc;
+        min-height: 600px;
+        padding: 0;
+    }
+    .mono {
+        font-family: "JetBrains Mono", monospace;
+    }
+    .accent {
+        color: #7ee787;
+    }
+    .dim {
+        color: #8b949e;
+    }
+    .link-color {
+        color: #58a6ff;
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 28px;
+        border-bottom: 1px solid #21262d;
+        background: #0d1117;
+    }
+    .nav-logo {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        color: #f0f6fc;
+    }
+    .nav-links {
+        display: flex;
+        gap: 24px;
+    }
+    .nav-links a {
+        font-size: 12px;
+        color: #8b949e;
+        text-decoration: none;
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 0.03em;
+    }
+    .nav-links a:hover {
+        color: #f0f6fc;
+    }
+
+    .hero {
+        padding: 60px 28px 40px;
+        border-bottom: 1px solid #21262d;
+    }
+    .hero-eyebrow {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: #7ee787;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+    .hero-name {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 38px;
+        font-weight: 700;
+        line-height: 1.15;
+        margin-bottom: 8px;
+        color: #f0f6fc;
+    }
+    .hero-terminal {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 16px;
+        color: #8b949e;
+        margin-bottom: 28px;
+        min-height: 22px;
+    }
+    .cursor {
+        display: inline-block;
+        width: 9px;
+        height: 16px;
+        background: #7ee787;
+        margin-left: 2px;
+        vertical-align: middle;
+        animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+    }
+    .hero-desc {
+        font-size: 14px;
+        color: #8b949e;
+        line-height: 1.75;
+        max-width: 480px;
+        margin-bottom: 32px;
+    }
+    .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 32px;
+    }
+    .badge {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        letter-spacing: 0.04em;
+    }
+    .badge-go {
+        background: #00acd730;
+        color: #00acd7;
+        border: 1px solid #00acd740;
+    }
+    .badge-rust {
+        background: #ce422b30;
+        color: #ff8552;
+        border: 1px solid #ce422b40;
+    }
+    .badge-py {
+        background: #3776ab30;
+        color: #60a5fa;
+        border: 1px solid #3776ab40;
+    }
+    .badge-ts {
+        background: #3178c630;
+        color: #7ec8e3;
+        border: 1px solid #3178c640;
+    }
+    .badge-cpp {
+        background: #9c3;
+        border: none;
+        background: #6e40c920;
+        color: #a78bfa;
+        border: 1px solid #6e40c940;
+    }
+    .hero-btns {
+        display: flex;
+        gap: 12px;
+    }
+    .btn-primary {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        padding: 8px 18px;
+        background: #238636;
+        color: #f0f6fc;
+        border: 1px solid #2ea043;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .btn-outline {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        padding: 8px 18px;
+        background: transparent;
+        color: #8b949e;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .section {
+        padding: 40px 28px;
+        border-bottom: 1px solid #21262d;
+    }
+    .section-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: #7ee787;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+    .section-title {
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 24px;
+        color: #f0f6fc;
+    }
+
+    .focus-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+    .focus-card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 18px;
+    }
+    .focus-icon {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+    .focus-name {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 700;
+        color: #f0f6fc;
+        margin-bottom: 6px;
+    }
+    .focus-desc {
+        font-size: 12px;
+        color: #8b949e;
+        line-height: 1.6;
+    }
+    .focus-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        margin-top: 10px;
+        color: #7ee787;
+    }
+
+    .repo-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .repo-card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 16px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+    }
+    .repo-left {
+    }
+    .repo-name {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: #58a6ff;
+        margin-bottom: 5px;
+    }
+    .repo-desc {
+        font-size: 12px;
+        color: #8b949e;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        max-width: 340px;
+    }
+    .repo-meta {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+    }
+    .repo-lang {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        color: #8b949e;
+    }
+    .lang-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .repo-stars {
+        font-size: 11px;
+        color: #8b949e;
+    }
+    .repo-badge {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 3px;
+        background: #21262d;
+        color: #8b949e;
+        border: 1px solid #30363d;
+        white-space: nowrap;
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .about-block {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 16px 18px;
+    }
+    .about-block-title {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: #7ee787;
+        letter-spacing: 0.08em;
+        margin-bottom: 10px;
+    }
+    .about-item {
+        font-size: 12px;
+        color: #8b949e;
+        padding: 5px 0;
+        border-bottom: 1px solid #21262d;
+        display: flex;
+        justify-content: space-between;
+    }
+    .about-item:last-child {
+        border: none;
+    }
+    .about-val {
+        color: #f0f6fc;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+    }
+
+    .contact-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .contact-link {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        padding: 8px 14px;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        color: #8b949e;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .contact-link:hover {
+        border-color: #58a6ff;
+        color: #58a6ff;
+    }
+    .contact-link i {
+        font-size: 15px;
+    }
+
+    .footer {
+        padding: 20px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .footer-text {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: #484f58;
+    }
+    .footer-status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: #7ee787;
+    }
+    .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #7ee787;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.4;
+        }
+    }
+</style>
+
+<div class="pf">
+    <nav class="nav">
+        <span class="nav-logo mono"
+            >~/portfolio <span class="accent">$</span></span
+        >
+        <div class="nav-links">
+            <a href="#">about</a>
+            <a href="#">projects</a>
+            <a href="#">contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-eyebrow">
+            available for work · backend · systems · AI
+        </div>
+        <div class="hero-name">Your Name</div>
+        <div class="hero-terminal mono" id="terminal">
+            <span id="typed"></span><span class="cursor"></span>
+        </div>
+        <p class="hero-desc">
+            I build things that run fast and don't break. Mostly backend
+            systems, distributed services, and the occasional AI pipeline. I
+            care about correctness, performance, and clean abstractions.
+        </p>
+        <div class="badge-row">
+            <span class="badge badge-go">Go</span>
+            <span class="badge badge-rust">Rust</span>
+            <span class="badge badge-py">Python</span>
+            <span class="badge badge-ts">TypeScript</span>
+            <span class="badge badge-cpp">C++</span>
+        </div>
+        <div class="hero-btns">
+            <a class="btn-primary" href="https://github.com/Dadarzz2405"
+                >View on GitHub</a
+            >
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-label">// focus areas</div>
+        <div class="section-title">What I actually build</div>
+        <div class="focus-grid">
+            <div class="focus-card">
+                <div class="focus-icon" aria-hidden="true">
+                    <i
+                        class="ti ti-server"
+                        style="font-size: 22px; color: #7ee787"
+                    ></i>
+                </div>
+                <div class="focus-name">Backend Systems</div>
+                <div class="focus-desc">
+                    REST/gRPC APIs, microservices, database design, message
+                    queues. Go and Python are home turf.
+                </div>
+                <div class="focus-tag">Go · Python · Postgres · Redis</div>
+            </div>
+            <div class="focus-card">
+                <div class="focus-icon" aria-hidden="true">
+                    <i
+                        class="ti ti-cpu"
+                        style="font-size: 22px; color: #ff8552"
+                    ></i>
+                </div>
+                <div class="focus-name">Systems Programming</div>
+                <div class="focus-desc">
+                    Low-level work where performance and memory matter. CLI
+                    tools, runtimes, data structures.
+                </div>
+                <div class="focus-tag">Rust · C++ · Linux</div>
+            </div>
+            <div class="focus-card">
+                <div class="focus-icon" aria-hidden="true">
+                    <i
+                        class="ti ti-brain"
+                        style="font-size: 22px; color: #60a5fa"
+                    ></i>
+                </div>
+                <div class="focus-name">AI & ML Engineering</div>
+                <div class="focus-desc">
+                    LLM integrations, inference pipelines, RAG systems,
+                    fine-tuning workflows, and model serving.
+                </div>
+                <div class="focus-tag">Python · PyTorch · LangChain</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-label">// github</div>
+        <div class="section-title">Selected repositories</div>
+        <div class="repo-list">
+            <div class="repo-card">
+                <div class="repo-left">
+                    <div class="repo-name">
+                        <i
+                            class="ti ti-book"
+                            style="
+                                font-size: 13px;
+                                vertical-align: -1px;
+                                margin-right: 5px;
+                            "
+                            aria-hidden="true"
+                        ></i
+                        >fastqueue
+                    </div>
+                    <div class="repo-desc">
+                        A high-throughput message queue built in Go with
+                        NATS-compatible protocol. Processes 800k+ msgs/sec on
+                        commodity hardware.
+                    </div>
+                    <div class="repo-meta">
+                        <span class="repo-lang"
+                            ><span
+                                class="lang-dot"
+                                style="background: #00acd7"
+                            ></span
+                            >Go</span
+                        >
+                        <span class="repo-stars"
+                            ><i
+                                class="ti ti-star"
+                                style="font-size: 12px; vertical-align: -1px"
+                                aria-hidden="true"
+                            ></i>
+                            142</span
+                        >
+                    </div>
+                </div>
+                <span class="repo-badge">backend</span>
+            </div>
+            <div class="repo-card">
+                <div class="repo-left">
+                    <div class="repo-name">
+                        <i
+                            class="ti ti-book"
+                            style="
+                                font-size: 13px;
+                                vertical-align: -1px;
+                                margin-right: 5px;
+                            "
+                            aria-hidden="true"
+                        ></i
+                        >rag-engine
+                    </div>
+                    <div class="repo-desc">
+                        Retrieval-augmented generation pipeline with pluggable
+                        vector stores (pgvector, Chroma, Pinecone) and LLM
+                        backends.
+                    </div>
+                    <div class="repo-meta">
+                        <span class="repo-lang"
+                            ><span
+                                class="lang-dot"
+                                style="background: #3776ab"
+                            ></span
+                            >Python</span
+                        >
+                        <span class="repo-stars"
+                            ><i
+                                class="ti ti-star"
+                                style="font-size: 12px; vertical-align: -1px"
+                                aria-hidden="true"
+                            ></i>
+                            87</span
+                        >
+                    </div>
+                </div>
+                <span class="repo-badge">AI/ML</span>
+            </div>
+            <div class="repo-card">
+                <div class="repo-left">
+                    <div class="repo-name">
+                        <i
+                            class="ti ti-book"
+                            style="
+                                font-size: 13px;
+                                vertical-align: -1px;
+                                margin-right: 5px;
+                            "
+                            aria-hidden="true"
+                        ></i
+                        >memkv
+                    </div>
+                    <div class="repo-desc">
+                        A minimal key-value store written in Rust. Implements an
+                        LSM-tree for writes and supports TTL, snapshots, and
+                        replication.
+                    </div>
+                    <div class="repo-meta">
+                        <span class="repo-lang"
+                            ><span
+                                class="lang-dot"
+                                style="background: #ce422b"
+                            ></span
+                            >Rust</span
+                        >
+                        <span class="repo-stars"
+                            ><i
+                                class="ti ti-star"
+                                style="font-size: 12px; vertical-align: -1px"
+                                aria-hidden="true"
+                            ></i>
+                            213</span
+                        >
+                    </div>
+                </div>
+                <span class="repo-badge">systems</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-label">// about</div>
+        <div class="section-title">Background</div>
+        <div class="about-grid">
+            <div class="about-block">
+                <div class="about-block-title">experience</div>
+                <div class="about-item">
+                    <span>Current role</span
+                    ><span class="about-val">Backend Engineer</span>
+                </div>
+                <div class="about-item">
+                    <span>Years coding</span><span class="about-val">5+</span>
+                </div>
+                <div class="about-item">
+                    <span>Location</span
+                    ><span class="about-val">Indonesia</span>
+                </div>
+                <div class="about-item">
+                    <span>Open to</span
+                    ><span class="about-val">Remote / Hybrid</span>
+                </div>
+            </div>
+            <div class="about-block">
+                <div class="about-block-title">interests</div>
+                <div class="about-item">
+                    <span>Distributed systems</span
+                    ><span class="about-val">✓</span>
+                </div>
+                <div class="about-item">
+                    <span>Compiler theory</span><span class="about-val">✓</span>
+                </div>
+                <div class="about-item">
+                    <span>Competitive programming</span
+                    ><span class="about-val">✓</span>
+                </div>
+                <div class="about-item">
+                    <span>Open source</span><span class="about-val">✓</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-label">// contact</div>
+        <div class="section-title">Get in touch</div>
+        <div class="contact-row">
+            <a class="contact-link" href="#"
+                ><i class="ti ti-brand-github" aria-hidden="true"></i>GitHub</a
+            >
+            <a class="contact-link" href="#"
+                ><i class="ti ti-brand-linkedin" aria-hidden="true"></i
+                >LinkedIn</a
+            >
+            <a class="contact-link" href="#"
+                ><i class="ti ti-mail" aria-hidden="true"></i>Email</a
+            >
+            <a class="contact-link" href="#"
+                ><i class="ti ti-brand-twitter" aria-hidden="true"></i>Twitter /
+                X</a
+            >
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span class="footer-text">built with intention, not a template</span>
+        <div class="footer-status">
+            <span class="status-dot"></span>open to opportunities
+        </div>
+    </footer>
+</div>
+
+<script>
+    const phrases = [
+        "building things that scale.",
+        "writing Go that ships.",
+        "thinking in systems.",
+        "exploring AI pipelines.",
+    ];
+    let pi = 0,
+        ci = 0,
+        del = false;
+    const el = document.getElementById("typed");
+    function type() {
+        const phrase = phrases[pi];
+        if (!del) {
+            el.textContent = phrase.slice(0, ++ci);
+            if (ci === phrase.length) {
+                del = true;
+                setTimeout(type, 1800);
+                return;
+            }
+            setTimeout(type, 60);
+        } else {
+            el.textContent = phrase.slice(0, --ci);
+            if (ci === 0) {
+                del = false;
+                pi = (pi + 1) % phrases.length;
+                setTimeout(type, 300);
+                return;
+            }
+            setTimeout(type, 30);
+        }
+    }
+    type();
+</script>
