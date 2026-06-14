@@ -1,5 +1,5 @@
 ---
-const res = await fetch('https://api.github.com/users/Dadarzz2405/repos?sort=stars&direction=desc&per_page=100');
+const res = await fetch('https://api.github.com/users/haidaralif-24/repos?sort=stars&direction=desc&per_page=100');
 const all = await res.json();
 const repos = all.filter(r => r.stargazers_count > 0).slice(0, 3);
 
