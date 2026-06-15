@@ -337,13 +337,13 @@ int main() {
         typescript: `console.log("Hello, World!");`,
     };
 
-    // Piston language identifiers
-    const LANG_ID = {
-        go: "go",
-        rust: "rust",
-        python: "python",
-        cpp: "c++",
-        typescript: "typescript",
+    // Piston language identifiers — pinned versions
+    const RUNTIMES = {
+        go:         { language: "go",         version: "1.16.2"  },
+        rust:       { language: "rust",       version: "1.50.0"  },
+        python:     { language: "python",     version: "3.10.0"  },
+        cpp:        { language: "c++",        version: "10.2.0"  },
+        typescript: { language: "typescript", version: "1.32.3"  },
     };
 
     const FILE_EXT = {
@@ -434,21 +434,7 @@ int main() {
         output.textContent = "";
 
         try {
-            // Fetch available runtimes to get the latest version for the language
-            const rtRes = await fetch(
-                "https://emkc.org/api/v2/piston/runtimes",
-            );
-            const runtimes = await rtRes.json();
-            const langId = LANG_ID[currentLang];
-            const rt = runtimes
-                .filter((r) => r.language === langId)
-                .sort((a, b) =>
-                    b.version.localeCompare(a.version, undefined, {
-                        numeric: true,
-                    }),
-                )[0];
-
-            if (!rt) throw new Error(`Runtime not found for ${langId}`);
+            const rt = RUNTIMES[currentLang];
 
             const res = await fetch("https://emkc.org/api/v2/piston/execute", {
                 method: "POST",
@@ -456,45 +442,31 @@ int main() {
                 body: JSON.stringify({
                     language: rt.language,
                     version: rt.version,
-                    files: [
-                        { name: FILE_EXT[currentLang], content: editor.value },
-                    ],
+                    files: [{ name: FILE_EXT[currentLang], content: editor.value }],
                     stdin: "",
                     args: [],
-                    compile_timeout: 10000,
-                    run_timeout: 5000,
                 }),
             });
 
             const data = await res.json();
-            const run = data.run || {};
-            const stdout = run.stdout || run.output || "";
-            const stderr = run.stderr || "";
+            console.log("[playground]", data);
+
+            const stdout    = data.run?.stdout  || "";
+            const stderr    = data.run?.stderr  || "";
             const compileErr = data.compile?.stderr || "";
-            const exitCode = run.code ?? 0;
+            const exitCode  = data.run?.code ?? 0;
 
-            console.log('[playground] response:', data);
-
-            const combined = [compileErr, stderr, stdout]
-                .filter(Boolean)
-                .join("\n")
-                .trim();
-
-            if (combined) {
-                output.textContent = combined;
-            } else {
-                output.textContent = "(no output)";
-                console.warn('[playground] empty output for:', data);
-            }
+            const combined = [compileErr, stderr, stdout].filter(Boolean).join("\n").trim();
+            output.textContent = combined || "(no output)";
 
             if (exitCode === 0 && !compileErr && !stderr) {
-                setStatus(`✓ exit 0`, "ok");
+                setStatus("✓ exit 0", "ok");
             } else {
                 setStatus(`exit ${exitCode}`, "err");
                 output.classList.add("has-error");
             }
         } catch (err) {
-            output.textContent = `Error: ${err.message}\n\nThe Piston sandbox may be temporarily unavailable.`;
+            output.textContent = `Error: ${err.message}\n\nPiston may be temporarily unavailable.`;
             output.classList.add("has-error");
             setStatus("error", "err");
         } finally {
