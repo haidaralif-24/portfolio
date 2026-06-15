@@ -1,7 +1,10 @@
 ---
-const res = await fetch('https://api.github.com/users/haidaralif-24/repos?sort=stars&direction=desc&per_page=100');
-const all = await res.json();
-const repos = all.filter(r => r.stargazers_count > 0).slice(0, 3);
+let repos = [];
+try {
+  const res = await fetch('https://api.github.com/users/haidaralif-24/repos?sort=stars&direction=desc&per_page=100');
+  const all = await res.json();
+  repos = all.filter(r => r.stargazers_count > 0).slice(0, 3);
+} catch {} // gracefully fall back to empty list if offline
 
 const langColors = {
   Go: '#00ACD7', Python: '#3776AB', Rust: '#CE422B',
