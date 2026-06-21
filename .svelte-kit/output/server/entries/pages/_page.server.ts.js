@@ -15,6 +15,7 @@ var langColors = {
 	PHP: "#4F5D95",
 	Ruby: "#701516"
 };
+var prerender = true;
 var load = async () => {
 	let repos = [];
 	try {
@@ -26,4 +27,4 @@ var load = async () => {
 	};
 };
 //#endregion
-export { load };
+export { load, prerender };

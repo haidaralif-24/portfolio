@@ -26,6 +26,8 @@ const langColors: Record<string, string> = {
 	Ruby: '#701516',
 };
 
+export const prerender = true;
+
 export const load: PageServerLoad = async () => {
 	let repos: Repo[] = [];
 	try {
