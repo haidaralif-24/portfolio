@@ -45,7 +45,15 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ compiler: COMPILERS[lang], code, input: '' }),
             });
-            const data = await res.json();
+            const text = await res.text();
+            let data: any;
+            try {
+                data = JSON.parse(text);
+            } catch {
+                output = text || `Error ${res.status}`;
+                hasError = true;
+                return;
+            }
             const combined = [data.error || '', data.output || ''].filter(Boolean).join('\n').trim();
             output = combined || '(no output)';
             if (data.status !== 'success' || data.exit_code !== 0) {

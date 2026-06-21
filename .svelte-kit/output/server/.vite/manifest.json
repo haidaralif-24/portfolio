@@ -6,7 +6,8 @@
     "isEntry": true,
     "imports": [
       "_internal2.js",
-      "_internal.js"
+      "_internal.js",
+      "_shared-server.js"
     ]
   },
   "_env.js": {
@@ -43,6 +44,10 @@
   "_server.js": {
     "file": "chunks/server.js",
     "name": "server"
+  },
+  "_shared-server.js": {
+    "file": "chunks/shared-server.js",
+    "name": "shared-server"
   },
   "_shared.js": {
     "file": "chunks/shared.js",
@@ -92,6 +97,7 @@
       "_utils.js",
       "_internal.js",
       "_exports.js",
+      "_shared-server.js",
       "_shared.js",
       "_server.js"
     ]
@@ -137,7 +143,10 @@
     "file": "entries/endpoints/api/run-code/_server.ts.js",
     "name": "entries/endpoints/api/run-code/_server.ts",
     "src": "src/routes/api/run-code/+server.ts",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_shared-server.js"
+    ]
   },
   "virtual:__sveltekit/env": {
     "file": "env.js",
