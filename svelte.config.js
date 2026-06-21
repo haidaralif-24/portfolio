@@ -1,10 +1,10 @@
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-vercel';
 
 const config = {
 	kit: {
 		adapter: adapter({
-			fallback: '200.html',
-		}),
+		runtime: 'nodejs22.x',
+	}),
 		paths: {
 			base: ''
 		}

@@ -12,5 +12,8 @@
     "@sveltejs/kit": "^2.20.7",
     "svelte": "^5.28.2",
     "vite": "^8.0.0"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-vercel": "^6.3.4"
   }
 }
